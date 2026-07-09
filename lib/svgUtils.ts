@@ -54,7 +54,7 @@ export function buildSVGString(parts: ProcessedPart[], width: number, height: nu
   const bgStyle = background && background !== "transparent" ? ` style="background:${background}"` : "";
   const childrenMarkup = parts.map((p) => partToString(p, 2)).join("\n");
 
-  return `&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}" width="${width}" height="${height}"${bgStyle}&gt;\n${childrenMarkup}\n&lt;/svg&gt;`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}" width="${width}" height="${height}"${bgStyle}>\n${childrenMarkup}\n</svg>`;
 }
 
 function partToString(part: ProcessedPart, indent: number): string {
@@ -64,19 +64,19 @@ function partToString(part: ProcessedPart, indent: number): string {
     .join(" ");
 
   const tag = part.tag;
-  const open = `${pad}&lt;${tag}${attrStr ? " " + attrStr : ""}&gt;`;
+  const open = `${pad}<${tag}${attrStr ? " " + attrStr : ""}>`;
 
   if (part.children.length === 0 && !part.text) {
-    return `${pad}&lt;${tag}${attrStr ? " " + attrStr : ""} /&gt;`;
+    return `${pad}<${tag}${attrStr ? " " + attrStr : ""} />`;
   }
 
   if (part.text && part.children.length === 0) {
-    return `${open}${part.text}&lt;/${tag}&gt;`;
+    return `${open}${part.text}</${tag}>`;
   }
 
   const childStr = part.children.map((c) => partToString(c, indent + 1)).join("\n");
   const textStr = part.text ? "\n" + "  ".repeat(indent + 1) + part.text : "";
-  return `${open}${textStr}\n${childStr}\n${pad}&lt;/${tag}&gt;`;
+  return `${open}${textStr}\n${childStr}\n${pad}</${tag}>`;
 }
 
 export function downloadFile(content: string, filename: string, mime: string = "text/plain") {

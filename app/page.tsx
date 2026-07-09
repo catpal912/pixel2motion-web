@@ -143,7 +143,7 @@ export default function Home() {
                 <div className="p-4">
                   <textarea
                     readOnly
-                    value={svgString.replace(/&lt;/g, "<").replace(/&gt;/g, ">")}
+                    value={svgString}
                     className="w-full h-40 text-xs font-mono bg-[#f5f5f3] rounded-xl p-3 resize-none outline-none border border-black/5"
                   />
                 </div>

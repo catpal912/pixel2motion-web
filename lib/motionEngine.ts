@@ -93,7 +93,7 @@ function buildStaggerRevealCSS(
   css += `  from { opacity: 0; transform: translate(var(--tx,0), var(--ty,20px)) scale(0.96); }\n`;
   css += `  to   { opacity: 1; transform: translate(0,0) scale(1); }\n}\n\n`;
 
-  const dirMap: Record<string, [number, number]> = {
+  const dirMap: Record<string, [string, string]> = {
     left: ["-30px", "0"],
     right: ["30px", "0"],
     top: ["0", "-30px"],
@@ -161,7 +161,7 @@ function buildFadeSlideCSS(
   css += `  to   { opacity: 1; transform: translate(0,0); }\n`;
   css += `}\n\n`;
 
-  const dirMap: Record<string, [number, number]> = {
+  const dirMap: Record<string, [string, string]> = {
     left: ["-40px", "0"],
     right: ["40px", "0"],
     top: ["0", "-40px"],
@@ -218,38 +218,38 @@ function buildShowcaseHTML(
   const svgInner = parts.map((p) => partToHTML(p)).join("\n    ");
   const viewBox = `0 0 ${width} ${height}`;
 
-  return `&lt;!doctype html&gt;
-&lt;html lang="en"&gt;
-&lt;head&gt;
-  &lt;meta charset="utf-8"&gt;
-  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
-  &lt;title&gt;Logo Motion&lt;/title&gt;
-  &lt;style&gt;
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Logo Motion</title>
+  <style>
     html, body { margin: 0; padding: 0; background: #FCFCFA; }
     body { display: grid; place-items: center; min-height: 100vh; }
     #stage { width: min(70vw, ${Math.round(width * 0.7)}px); }
     ${css.replace(/^/gm, "    ")}
-  &lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;div id="stage"&gt;
-    &lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}" width="${width}" height="${height}"&gt;
+  </style>
+</head>
+<body>
+  <div id="stage">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}" width="${width}" height="${height}">
     ${svgInner}
-    &lt;/svg&gt;
-  &lt;/div&gt;
-  &lt;script&gt;
+    </svg>
+  </div>
+  <script>
     // Replay helper
     function replay() {
-      document.querySelectorAll('#stage [id]').forEach(el =&gt; {
+      document.querySelectorAll('#stage [id]').forEach(el => {
         el.style.animationName = 'none';
         el.offsetHeight; // force reflow
         el.style.animationName = '';
       });
     }
-    window.addEventListener('keydown', e =&gt; { if (e.key === ' ') replay(); });
-  &lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;`;
+    window.addEventListener('keydown', e => { if (e.key === ' ') replay(); });
+  </script>
+</body>
+</html>`;
 }
 
 function partToHTML(part: ProcessedPart): string {
@@ -257,9 +257,9 @@ function partToHTML(part: ProcessedPart): string {
     .map(([k, v]) => `${k}="${v}"`)
     .join(" ");
   if (part.children.length === 0 && !part.text) {
-    return `&lt;${part.tag} ${attrs} /&gt;`;
+    return `<${part.tag} ${attrs} />`;
   }
   const inner = part.children.map(partToHTML).join("\n    ");
   const text = part.text || "";
-  return `&lt;${part.tag} ${attrs}&gt;${text}${inner ? "\n    " + inner : ""}&lt;/${part.tag}&gt;`;
+  return `<${part.tag} ${attrs}>${text}${inner ? "\n    " + inner : ""}</${part.tag}>`;
 }

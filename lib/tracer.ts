@@ -245,7 +245,7 @@ export async function traceImage(
           ? ""
           : ` style="background:${options.background}"`;
 
-      const svg = `&lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}"${bg}&gt;\n${pathElements}\n&lt;/svg&gt;`;
+      const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}"${bg}>\n${pathElements}\n</svg>`;
 
       resolve({ svg, width: w, height: h, pathCount: paths.length });
     };
