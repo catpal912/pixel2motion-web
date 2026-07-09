@@ -1,6 +1,7 @@
 import { ProcessedPart } from "./types";
 
 export function parseSVG(svgString: string): ProcessedPart | null {
+  if (typeof DOMParser === "undefined") return null;
   const parser = new DOMParser();
   const doc = parser.parseFromString(svgString, "image/svg+xml");
   const root = doc.documentElement;
@@ -80,6 +81,7 @@ function partToString(part: ProcessedPart, indent: number): string {
 }
 
 export function downloadFile(content: string, filename: string, mime: string = "text/plain") {
+  if (typeof window === "undefined") return;
   const blob = new Blob([content], { type: mime });
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
