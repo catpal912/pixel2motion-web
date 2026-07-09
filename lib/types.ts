@@ -38,7 +38,7 @@ export interface ProjectState {
 
 export const DEFAULT_TRACE_OPTIONS: TraceOptions = {
   threshold: 128,
-  turdSize: 2,
+  turdSize: 0,
   alphaMax: 1.0,
   curveOptimization: 1.0,
   optTolerance: 0.2,

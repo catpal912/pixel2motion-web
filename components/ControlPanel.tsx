@@ -42,7 +42,7 @@ export default function ControlPanel({
           />
           <SliderRow
             label="噪点过滤"
-            min={0} max={20} step={1}
+            min={0} max={50} step={1}
             value={traceOptions.turdSize}
             onChange={(v) => updateTrace({ turdSize: v })}
             display={`${traceOptions.turdSize}px`}
